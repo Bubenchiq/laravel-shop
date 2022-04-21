@@ -15,9 +15,9 @@ class CreateNewRoles extends Migration
      */
     public function up()
     {
-        $role = Role::create(['name' => 'user']);
-        $role = Role::create(['name' => 'admin']);
-        $role = Role::create(['name' => 'manager']);
+        Role::create(['name' => 'user']);
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'manager']);
     }
 
     /**
@@ -27,6 +27,6 @@ class CreateNewRoles extends Migration
      */
     public function down()
     {
-        dropIfExists($role);
+        Role::whereIn('name', ['user', 'admin', 'manager'])->delete();
     }
 }
