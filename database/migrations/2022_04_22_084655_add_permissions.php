@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Premissions extends Migration
+class AddPermissions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class Premissions extends Migration
      */
     public function up()
     {
-        $permission = Permission::create(['admin' => 'admin_pre']);
+        $permission = Permission::findOrCreate(['admin_per']);
         Role::whereName('admin')->first()->givePermissionTo($permission);
-        $permission = Permission::create(['manager' => 'manager_pre']);
         Role::whereName('manager')->first()->givePermissionTo($permission);
         //
     }
@@ -27,7 +26,7 @@ class Premissions extends Migration
      */
     public function down()
     {
-        Permission::whereIn('name', ['user', 'admin', 'manager'])->delete();
+        Permission::whereName('admin_per')->delete();
         //
     }
 }
