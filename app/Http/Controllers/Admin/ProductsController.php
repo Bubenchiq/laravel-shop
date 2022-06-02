@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -23,7 +23,7 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Products::query()->latest()->paginate(10);
+        $products = Product::query()->latest()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -35,11 +35,9 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-
     {
         return view('admin.products.createProducts');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -49,12 +47,12 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'products_name' => 'required',
-            'products_description' => 'required',
-            'products_price'=> 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price'=> 'required',
         ]);
 
-        Products::create($request->all() + ['user_id' => auth()->id()]);
+        Product::create($request->all() + ['user_id' => auth()->id()]);
 
         return redirect()->route('admin.products.index')->with('success','Product created successfully.');
     }
@@ -65,7 +63,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Products $product)
+    public function show(Product $product)
     {
         return view('admin.products.show',compact('product'));
     }
@@ -76,7 +74,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Products $product)
+    public function edit(Product $product)
     {
         return view('admin.products.updateProduct',compact('product'));
     }
@@ -88,12 +86,12 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $product)
+    public function update(Request $request, Product $product)
     {
         $request->validate([
-            'products_name' => 'required',
-            'products_description' => 'required',
-
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
         ]);
 
         $product->update($request->all());
@@ -107,7 +105,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $product)
+    public function destroy(Product $product)
     {
         $product->delete();
 

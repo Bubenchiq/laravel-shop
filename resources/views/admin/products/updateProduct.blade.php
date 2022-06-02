@@ -1,10 +1,7 @@
-@extends('layouts.navigation')
-@extends('layouts.app')
-@section('content')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Update '.$product->products_name) }}
+            {{ __('Update '.$product->name) }}
         </h2>
     </x-slot>
     <div class="pull-right">
@@ -28,18 +25,18 @@
         <div class="row gx-5">
             <div class="col">
                 <div class="form-group">
-                    <label for="products_name">Product's name</label>
-                    <input type="text" value="{{$product->products_name}}" name="products_name" placeholder="Name of product" id="products_name" class="form-control">
+                    <label for="name">Product's name</label>
+                    <input type="text" value="{{$product->name}}" name="name" placeholder="Name of product" id="name" class="form-control">
                 </div>
 
                  <div class="form-group">
-                    <label for="products_price">Price</label>
-                    <input type="number" value="{{$product->products_price}}" name="products_price" placeholder="Name of product" id="products_price" class="form-control">
+                    <label for="price">Price</label>
+                    <input type="number" value="{{$product->price}}" name="price" placeholder="Name of product" id="price" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label for="products_description">Description</label>
-                    <textarea name="products_description" id="products_description" class="form-control" placeholder="Input description">{{$product->products_description}}
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" class="form-control" placeholder="Input description">{{$product->description}}
 
                     </textarea>
                 </div>
@@ -52,5 +49,4 @@
   </div>
 </div>
 </form>
-@endsection
 </x-app-layout>

@@ -6,16 +6,16 @@ use Spatie\Permission\Models\Permission;
 
 
 class AddProductPermission extends Migration
-
-{   /*@var array|string[] */
+{
+    /*@var array|string[] */
     private array $permissions = [
-    'products@index',
-    'products@create',
-    'products@show',
-    'products@edit',
-    'products@delete',
+        'products@index',
+        'products@create',
+        'products@show',
+        'products@edit',
+        'products@delete',
+    ];
 
-];
     /**
      * Run the migrations.
      *
@@ -24,12 +24,13 @@ class AddProductPermission extends Migration
     public function up()
     {
         $permissions = [];
+
         foreach ($this->permissions as $permission){
             $permissions[] = Permission::create(['name'=> $permission]);
         }
+
         \Spatie\Permission\Models\Role::findByName('admin')->givePermissionTo($permissions);
         \Spatie\Permission\Models\Role::findByName('manager')->givePermissionTo($permissions);
-
     }
 
     /**
@@ -39,6 +40,6 @@ class AddProductPermission extends Migration
      */
     public function down()
     {
-        \Spatie\Permission\Models\Role::whereIn('name', $this->permissions)->delete();
+        \Spatie\Permission\Models\Permission::whereIn('name', $this->permissions)->delete();
     }
 }
