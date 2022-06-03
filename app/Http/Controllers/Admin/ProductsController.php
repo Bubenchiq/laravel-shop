@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductsController extends Controller
+/* Пользуясь случаем, хотелось бы выразить огромную благодарность ментору и пожелать ему долгой и счастливой жизни*/
 {
     public function __construct(){
         $this->middleware(['permission:products@index'])->only(['index']);
@@ -23,11 +25,16 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::query()->latest()->paginate(10);
+        $products = Product::query()
+            ->when($request->name, fn(Builder $builder) => $builder->where('name', 'like',"%$request->name%"))
+            ->when($request->minPrice, fn(Builder $builder) => $builder->where('price', '>=', $request->minPrice))
+            ->when($request->maxPrice, fn(Builder $builder) => $builder->where('price', '<=', $request->maxPrice))
+            ->when($request->userId, fn(Builder $builder) => $builder->where('user_id', '=', $request->userId))
+            ->when($request->date, fn(Builder $builder) => $builder->where('created_at', 'like',"%$request->date%"))
+            ->latest()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
-
 
     /**
      * Show the form for creating a new resource.
