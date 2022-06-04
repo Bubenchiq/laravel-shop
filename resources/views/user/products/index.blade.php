@@ -9,15 +9,15 @@
         <form method="get" action="{{ route('user.products.index') }}">
             <div class="container d-flex align-items-center justify-content-center bg-white py-4">
                 <div class="form-check form-check-inline">
-                    <label for="searchByName">Name</label>
+                    <label for="name">Name</label>
                     <input type="text" class="form-control" value="{{ request('name') }}" id="name" name="name">
                 </div>
                 <div class="form-check form-check-inline">
-                    <label for="searchByName">Min price</label>
+                    <label for="minPrice">Min price</label>
                     <input type="text" class="form-control" value="{{ request('minPrice') }}" id="minPrice" name="minPrice">
                 </div>
                 <div class="form-check form-check-inline">
-                    <label for="searchByName">Max price</label>
+                    <label for="maxPrice">Max price</label>
                     <input type="text" class="form-control" value="{{ request('maxPrice') }}" id="maxPrice" name="maxPrice">
                 </div>
                 <div class="form-check form-check-inline">

@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 class ProductsController extends Controller
 /* Пользуясь случаем, хотелось бы выразить огромную благодарность ментору и пожелать ему долгой и счастливой жизни*/
@@ -25,12 +26,17 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
+        if($date = $request->get('date')) {
+            $searchData['from'] = Carbon::createFromFormat('Y-m-d', $date)->startOfDay();
+            $searchData['to'] = Carbon::createFromFormat('Y-m-d', $date)->endOfDay();
+        }
+
         $products = Product::query()
             ->when($request->name, fn(Builder $builder) => $builder->where('name', 'like',"%$request->name%"))
             ->when($request->minPrice, fn(Builder $builder) => $builder->where('price', '>=', $request->minPrice))
             ->when($request->maxPrice, fn(Builder $builder) => $builder->where('price', '<=', $request->maxPrice))
             ->when($request->userId, fn(Builder $builder) => $builder->where('user_id', '=', $request->userId))
-            ->when($request->date, fn(Builder $builder) => $builder->where('created_at', 'like',"%$request->date%"))
+            ->when($date, fn(Builder $builder) => $builder->where('created_at', '>=', $searchData['from'])->where('created_at', '<=', $searchData['to']))
             ->latest()->paginate(10);
 
         return view('admin.products.index', compact('products'));
