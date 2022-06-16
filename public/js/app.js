@@ -4972,6 +4972,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./cart */ "./resources/js/cart.js");
+
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
@@ -5006,6 +5008,89 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/cart.js":
+/*!******************************!*\
+  !*** ./resources/js/cart.js ***!
+  \******************************/
+/***/ (() => {
+
+$(document).ready(function () {
+  $('.cart_button').click(function (e) {
+    addToCart(e);
+  });
+  $('.cart_button_del').click(function (e) {
+    removeFromCart(e);
+  });
+  $('.cart_button_clear').click(function (e) {
+    deleteFromCart(e);
+  });
+});
+
+function addToCart(e) {
+  var id = e.target.id;
+  $.ajax({
+    url: '/addToCart/' + id,
+    type: "POST",
+    data: {},
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(data) {
+      updateCart(data);
+    }
+  });
+}
+
+function removeFromCart(e) {
+  var id = e.target.id;
+  $.ajax({
+    url: '/removeFromCart/' + id,
+    type: "POST",
+    data: {},
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(data) {
+      updateCart(data);
+    }
+  });
+}
+
+function updateCart(data) {
+  var cartDiv = $('#cartDiv');
+  var navCart = $('#navCart');
+  var totalQuantity = data.total_quantity;
+  var removedItem = data.removed_item;
+  var fullPrice = $('#fullPrice');
+  var totalPrice = data.total_price;
+  navCart.text(totalQuantity);
+  fullPrice.text('Total price: ' + Math.floor(totalPrice * 100) / 100);
+
+  if (cartDiv !== undefined) {
+    if (data.items.length < 1) {
+      $('#cartDiv > table').remove();
+      cartDiv.append('Cart is empty now', document.createElement("p"));
+    } else {
+      if (removedItem !== undefined) {
+        $('#tr_' + removedItem).remove();
+      }
+
+      $.each(data.items, function (key, item) {
+        return updateTableRow(item);
+      });
+    }
+  }
+}
+
+function updateTableRow(item) {
+  var tdTotal = $('#td_total_' + item.id);
+  var span = $('#span_' + item.id);
+  tdTotal.text(Math.floor(item.quantity * item.price * 100) / 100 + ' $');
+  span.text(item.quantity);
+}
 
 /***/ }),
 

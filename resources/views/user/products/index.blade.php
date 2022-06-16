@@ -57,17 +57,18 @@
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->price .'$' }}</td>
-                <td width="150">
-                    <div class="container">
-                     <a class="btn btn-black" href="{{ route('user.products.show',$product->id) }}">Show</a>
-                    </div>
-
+                <td width="100">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                             <a class="btn btn-outline-dark" href="{{ route('user.products.show',$product->id) }}">Show</a>
+                                <button id="{{$product->id}}" class="btn btn-outline-dark cart_button">Add to cart</button>
+                        </div>
                 </td>
             </tr>
             @endforeach
     </table>
-    <div class="container bg-white">
-        {{ $products->links() }}
+        <div class="container bg-white">
+            {{ $products->links() }}
+        </div>
     </div>
 </div>
     </x-app-layout>
