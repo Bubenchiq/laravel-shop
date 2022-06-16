@@ -4,7 +4,8 @@
             {{ __('About product') }}
         </h2>
     </x-slot>
-<div class="container">
+    <br>
+<div class="container bg-white py-6">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -13,7 +14,7 @@
             </div>
             <div class="pull-right">
                 <br>
-                <a class="btn btn-black" href="{{ route('user.products.index') }}"> Back</a>
+                <a class="btn btn-outline-dark" href="{{ route('user.products.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -36,7 +37,12 @@
             <div class="form-group">
                 <strong>Description:</strong>
                 {{ $product->description }}
+                <div class="pull-right">
+                <button id="{{$product->id}}" class="btn btn-outline-dark cart_button">Add to cart</button>
+                <button id="{{$product->id}}" class="btn btn-outline-dark cart_button_del">Delete from cart</button>
+                </div>
             </div>
         </div>
+    </div>
 </div>
 </x-app-layout>

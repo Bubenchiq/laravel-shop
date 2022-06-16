@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\addToCart;
 
 
 /*
@@ -27,3 +28,16 @@ require __DIR__.'/auth.php';
 
 Route::resource('/products', \App\Http\Controllers\User\ProductsController::class )
 ->only('index', 'show')->names('user.products');
+
+
+Route::resource('/cart', \App\Http\Controllers\User\CartController::class )
+->only('index')->names('user.cart');
+
+Route::post('/addToCart/{product}',[ \App\Http\Controllers\User\CartController::class, 'addToCart'])
+    ->name('addToCart');
+Route::post('/removeFromCart/{product}',[ \App\Http\Controllers\User\CartController::class, 'removeFromCart'])
+    ->name('removeFromCart');
+//Route::post('/deleteFromCart',[ \App\Http\Controllers\User\CartController::class, 'deleteFromCart'])
+//    ->name('deleteFromCart');
+
+
