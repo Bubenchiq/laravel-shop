@@ -14,14 +14,6 @@ $(document).ready( function () {
 function addToCart(e)
 {
     let id = e.target.id;
-    // let span = $('#span_'+id);
-    // let quantity = 0;
-    // quantity = parseInt($('.cart_button').val('quantity'));
-    // let total_quantity = parseInt($('.totalQuantity').text())
-    // parseInt($('.totalQuantity').text(total_quantity))
-    // let thisProductQuantity = parseInt(span.text())
-    // ++thisProductQuantity
-
     $.ajax(
         {
             url: '/addToCart/'+id,
@@ -56,7 +48,6 @@ function removeFromCart(e)
         })
 }
 function updateCart(data) {
-    console.log(data)
     let cartDiv = $('#cartDiv')
     let navCart = $('#navCart')
     let totalQuantity = data.total_quantity
@@ -76,7 +67,6 @@ function updateCart(data) {
             if(removedItem !== undefined){
                 $('#tr_'+removedItem).remove()
             }
-            console.log(data.items)
             $.each(data.items, (key, item) => updateTableRow(item) )
         }
 
@@ -88,7 +78,6 @@ function updateTableRow (item) {
     let tdTotal = $('#td_total_' + item.id)
     let span = $('#span_'+item.id)
 
-    console.log(item)
     tdTotal.text(Math.floor(item.quantity * item.price * 100) / 100 + ' $')
 
     span.text(item.quantity)

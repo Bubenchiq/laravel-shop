@@ -11,11 +11,16 @@ use  Illuminate\Http\JsonResponse;
 
 class CartController extends Controller
 {
-    public function index(Request $request)
+    public function __construct()
     {
         if(!isset($_COOKIE['cart_id'])) {
             setcookie('cart_id', uniqid());
         }
+
+    }
+
+    public function index(Request $request)
+    {
         $cart_id = $_COOKIE['cart_id'];
         $cart = \Cart::session($cart_id);
         $sum = $cart->getTotal('price');
@@ -28,11 +33,6 @@ class CartController extends Controller
     }
     public function addToCart(Product $product)
     {
-
-
-        if(!isset($_COOKIE['cart_id'])) {
-            setcookie('cart_id', uniqid());
-        }
         $cart_id = $_COOKIE['cart_id'];
         $cart = \Cart::session($cart_id);
 
@@ -53,12 +53,9 @@ class CartController extends Controller
 
     public function removeFromCart(Product $product)
     {
-        $data = [];
-        if (!isset($_COOKIE['cart_id'])) {
-            setcookie('cart_id', uniqid());
-        }
         $cart_id = $_COOKIE['cart_id'];
         $cart = \Cart::session($cart_id);
+
         if ($cart->get($product->id)->quantity > 1) {
             $cart->update($product->id, [
                 'id' => $product->id,
@@ -78,15 +75,5 @@ class CartController extends Controller
         return response()->json($data);
 
     }
-//    public function deleteFromCart(Request $request)
-//    {
-//        if (!isset($_COOKIE['cart_id'])) {
-//            setcookie('cart_id', uniqid());
-//        }
-//        $cart_id = $_COOKIE['cart_id'];
-//        \Cart::session($cart_id)->remove($request->id);
-//
-//        return response()->json([\Cart::session($cart_id)->getContent()]);
-//    }
 
 }

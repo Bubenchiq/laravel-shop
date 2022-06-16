@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\addToCart;
 
@@ -37,7 +36,5 @@ Route::post('/addToCart/{product}',[ \App\Http\Controllers\User\CartController::
     ->name('addToCart');
 Route::post('/removeFromCart/{product}',[ \App\Http\Controllers\User\CartController::class, 'removeFromCart'])
     ->name('removeFromCart');
-//Route::post('/deleteFromCart',[ \App\Http\Controllers\User\CartController::class, 'deleteFromCart'])
-//    ->name('deleteFromCart');
 
 

@@ -5030,14 +5030,7 @@ $(document).ready(function () {
 });
 
 function addToCart(e) {
-  var id = e.target.id; // let span = $('#span_'+id);
-  // let quantity = 0;
-  // quantity = parseInt($('.cart_button').val('quantity'));
-  // let total_quantity = parseInt($('.totalQuantity').text())
-  // parseInt($('.totalQuantity').text(total_quantity))
-  // let thisProductQuantity = parseInt(span.text())
-  // ++thisProductQuantity
-
+  var id = e.target.id;
   $.ajax({
     url: '/addToCart/' + id,
     type: "POST",
@@ -5067,7 +5060,6 @@ function removeFromCart(e) {
 }
 
 function updateCart(data) {
-  console.log(data);
   var cartDiv = $('#cartDiv');
   var navCart = $('#navCart');
   var totalQuantity = data.total_quantity;
@@ -5086,7 +5078,6 @@ function updateCart(data) {
         $('#tr_' + removedItem).remove();
       }
 
-      console.log(data.items);
       $.each(data.items, function (key, item) {
         return updateTableRow(item);
       });
@@ -5097,7 +5088,6 @@ function updateCart(data) {
 function updateTableRow(item) {
   var tdTotal = $('#td_total_' + item.id);
   var span = $('#span_' + item.id);
-  console.log(item);
   tdTotal.text(Math.floor(item.quantity * item.price * 100) / 100 + ' $');
   span.text(item.quantity);
 }
