@@ -31,7 +31,13 @@
                         <td class="align-middle">{{ $order->name   }}</td>
                         <td class="align-middle">{{ $order->user_id   }}</td>
                         <td class="align-middle">{{ $order->created_at }}</td>
-                        <td class="align-middle">{{ $order->status }}</td>
+                        @if($order->status === 'approved')
+                            <td class="align-middle bg-warning">{{ $order->status }}</td>
+                        @elseif($order->status === 'rejected')
+                            <td class="align-middle bg-danger">{{ $order->status }}</td>
+                        @else
+                            <td class="align-middle bg-info">{{ $order->status }}</td>
+                        @endif
                         <td class="align-middle">{{ $order->considered_at }}</td>
                         <td class="align-middle">{{ $order->total_price .'$' }}</td>
                         <td width="150">
