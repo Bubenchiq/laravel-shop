@@ -14,16 +14,18 @@
             <div class="btn-group pull-right" role="group" aria-label="Basic example">
                 <a class="btn btn-outline-dark" href="{{ route('admin.orders.index') }}"> Back</a>
                 @if($order->status === 'consideration')
-                <form action="{{ route('admin.orders.approve', $order) }}"  method="POST">
-                    @csrf
-                    @method('POST')
-                    <button class="btn btn-outline-dark" onclick="return confirm('Approve this order?')">Approve</button>
-                </form>
-                <form action="{{ route('admin.orders.reject', $order) }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <button  class="btn btn-outline-dark"  onclick="return confirm('Approve this order?')">Reject</button>
-                </form>
+                    <form action="{{ route('admin.orders.approve', $order) }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <button class="btn btn-outline-dark" onclick="return confirm('Approve this order?')">Approve
+                        </button>
+                    </form>
+                    <form action="{{ route('admin.orders.reject', $order) }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <button class="btn btn-outline-dark" onclick="return confirm('Approve this order?')">Reject
+                        </button>
+                    </form>
                 @endif
             </div>
             <br>

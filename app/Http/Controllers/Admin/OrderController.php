@@ -50,9 +50,13 @@ class OrderController extends Controller
             'status' => Order::STATUS_APPROVED,
             'manager_id' => auth()->id(),
             'considered_at' => now()
-            ]);
-        return redirect()->route('admin.orders.index', compact('order'))->with('success','Order approved');
+        ]);
+
+        return redirect()
+            ->route('admin.orders.index', compact('order'))
+            ->with('success', 'Order approved');
     }
+
     public function reject(Order $order)
     {
         $order->update([
@@ -60,7 +64,10 @@ class OrderController extends Controller
             'manager_id' => auth()->id(),
             'considered_at' => now()
         ]);
-        return redirect()->route('admin.orders.index', compact('order'))->with('success','Order rejected');
+
+        return redirect()
+            ->route('admin.orders.index', compact('order'))
+            ->with('success', 'Order rejected');
     }
 
     public function update(Request $request, Order $order)

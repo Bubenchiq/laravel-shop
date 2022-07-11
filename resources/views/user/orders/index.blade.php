@@ -17,6 +17,7 @@
                 <tr>
                     <th>id</th>
                     <th>date</th>
+                    <th>Status</th>
                     <th>Total price</th>
                     <th></th>
                 </tr>
@@ -25,6 +26,13 @@
                     <tr id="tr_{{$order->id}}">
                         <td>{{ $order->uuid   }}</td>
                         <td>{{ $order->created_at }}</td>
+                        @if($order->status === 'approved')
+                            <td class="align-middle bg-warning">{{ $order->status }}</td>
+                        @elseif($order->status === 'rejected')
+                            <td class="align-middle bg-danger">{{ $order->status }}</td>
+                        @else
+                            <td class="align-middle bg-info">{{ $order->status }}</td>
+                        @endif
                         <td>{{ $order->total_price .'$' }}</td>
                         <td width="150">
                             <div class="container">
