@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
     <br>
+        @csrf
     <div class="container bg-white py-4" id="cartDiv">
         @if($cart->isEmpty())
             <p>There is nothing in cart.</p>
@@ -41,10 +42,11 @@
 
             @endforeach
         </table>
-
                 <span id="fullPrice" class="d-flex bg-white justify-content-center align-items-center input-group-text border w-40 py-2 border-dark rounded-pill pull-right">
                          Total price: {{ $sum }}
                 </span>
+            <a class="btn btn-outline-dark" href="{{ route('user.orders.create') }}">Make order</a>
         @endif
     </div>
 </x-app-layout>
+

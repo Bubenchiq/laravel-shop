@@ -29,6 +29,21 @@
                         </x-nav-link>
                     </div>
                 @endcan
+
+                @can('order@index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
+                    </div>
+                @else
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('user.orders.index')" :active="request()->routeIs('user.orders.*')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
+
             </div>
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <x-nav-link :href="route('user.cart.index')" :active="request()->routeIs('user.cart.index')">

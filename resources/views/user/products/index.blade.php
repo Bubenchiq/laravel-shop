@@ -21,7 +21,8 @@
                     <input type="text" class="form-control" value="{{ request('maxPrice') }}" id="maxPrice" name="maxPrice">
                 </div>
                 <div class="form-check form-check-inline">
-                    <button type="submit" class="align-middle btn-btn-black">search</button>
+                    <br>
+                    <button type="submit" class="btn btn-outline-dark">search</button>
                 </div>
             </div>
         </form>

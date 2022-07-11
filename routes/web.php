@@ -37,4 +37,10 @@ Route::post('/addToCart/{product}',[ \App\Http\Controllers\User\CartController::
 Route::post('/removeFromCart/{product}',[ \App\Http\Controllers\User\CartController::class, 'removeFromCart'])
     ->name('removeFromCart');
 
+Route::resource('/orders', App\Http\Controllers\User\OrderController::class )
+    ->only('show', 'create', 'store')
+    ->names('user.orders');
+
+Route::get('/orders', [App\Http\Controllers\User\OrderController::class, 'index'])
+    ->middleware(['auth'])->name('user.orders.index');
 

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 
 class ProductsController extends Controller
-/* Пользуясь случаем, хотелось бы выразить огромную благодарность ментору и пожелать ему долгой и счастливой жизни*/
 {
     public function __construct(){
         $this->middleware(['permission:products@index'])->only(['index']);
