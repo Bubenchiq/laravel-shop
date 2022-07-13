@@ -44,10 +44,17 @@
                     </div>
                 @endcan
 
+                @can('statistic@index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin.statistic.index')" :active="request()->routeIs('admin.statistic.*')">
+                            {{ __('Statistic') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
             </div>
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <x-nav-link :href="route('user.cart.index')" :active="request()->routeIs('user.cart.index')">
-                    Cart: <span id="navCart">{{ __(\Cart::session($_COOKIE['cart_id'])->getTotalQuantity()) }}</span>
+                    Cart: <span id="navCart">{{ __(session('cart_id') ? \Cart::session(session('cart_id'))->getTotalQuantity() : 0) }}</span>
                 </x-nav-link>
             </div>
 

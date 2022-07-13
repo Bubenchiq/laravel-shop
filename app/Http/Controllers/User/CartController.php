@@ -13,15 +13,14 @@ class CartController extends Controller
 {
     public function __construct()
     {
-        if(!isset($_COOKIE['cart_id'])) {
-            setcookie('cart_id', uniqid());
+        if (!session('cart_id')) {
+            session(['cart_id' => uniqid()]);
         }
-
     }
 
     public function index(Request $request)
     {
-        $cart_id = $_COOKIE['cart_id'];
+        $cart_id = session('cart_id');
         $cart = \Cart::session($cart_id);
         $sum = $cart->getTotal('price');
 
@@ -33,7 +32,7 @@ class CartController extends Controller
     }
     public function addToCart(Product $product)
     {
-        $cart_id = $_COOKIE['cart_id'];
+        $cart_id = session('cart_id');
         $cart = \Cart::session($cart_id);
 
         $cart->add([
@@ -53,7 +52,7 @@ class CartController extends Controller
 
     public function removeFromCart(Product $product)
     {
-        $cart_id = $_COOKIE['cart_id'];
+        $cart_id = session('cart_id');
         $cart = \Cart::session($cart_id);
 
         if ($cart->get($product->id)->quantity > 1) {

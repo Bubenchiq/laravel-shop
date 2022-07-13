@@ -12,9 +12,10 @@ class OrderController extends Controller
 {
     public function __construct()
     {
-        if (!isset($_COOKIE['cart_id'])) {
-            setcookie('cart_id', uniqid());
+        if (!session('cart_id')) {
+            session(['cart_id' => uniqid()]);
         }
+
         $this->middleware(['permission:order@index'])->only(['index']);
         $this->middleware(['permission:order@show'])->only(['show']);
         $this->middleware(['permission:order@edit'])->only(['edit', 'update']);
@@ -68,10 +69,5 @@ class OrderController extends Controller
         return redirect()
             ->route('admin.orders.index', compact('order'))
             ->with('success', 'Order rejected');
-    }
-
-    public function update(Request $request, Order $order)
-    {
-        return redirect()->route('admin.orders.show', compact('order'));
     }
 }
