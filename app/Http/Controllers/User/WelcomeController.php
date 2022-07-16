@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\DB;
 class WelcomeController extends Controller
 {
     public function __invoke () {
-        $default = Product::query()->
-        select([
+        $default = Product::query()
+        ->select([
             'id',
             'products.name',
             'products.price',
