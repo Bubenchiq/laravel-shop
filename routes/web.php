@@ -15,9 +15,7 @@ use App\Http\Controllers\User\addToCart;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', App\Http\Controllers\User\WelcomeController::class)->name('default');;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
