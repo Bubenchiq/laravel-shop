@@ -17,11 +17,19 @@
                     </x-nav-link>
                 </div>
                 @can('products@index')
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
-                        {{ __('Production') }}
-                    </x-nav-link>
-                </div>
+                    @role('admin')
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
+                                {{ __('Production') }}
+                            </x-nav-link>
+                        </div>
+                    @else
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('manager.products.index')" :active="request()->routeIs('manager.products.*')">
+                                {{ __('Production') }}
+                            </x-nav-link>
+                        </div>
+                    @endrole
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('user.products.index')" :active="request()->routeIs('user.products.*')">
@@ -31,11 +39,19 @@
                 @endcan
 
                 @can('order@index')
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
-                            {{ __('Orders') }}
-                        </x-nav-link>
-                    </div>
+                    @role('admin')
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                                {{ __('Orders') }}
+                            </x-nav-link>
+                        </div>
+                    @else
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('manager.orders.index')" :active="request()->routeIs('manager.orders.*')">
+                                {{ __('Orders') }}
+                            </x-nav-link>
+                        </div>
+                    @endrole
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('user.orders.index')" :active="request()->routeIs('user.orders.*')">
@@ -45,9 +61,24 @@
                 @endcan
 
                 @can('statistic@index')
+                    @role('admin')
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('admin.statistic.index')" :active="request()->routeIs('admin.statistic.*')">
+                                {{ __('Statistic') }}
+                            </x-nav-link>
+                        </div>
+                    @else
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('manager.statistic.index')" :active="request()->routeIs('manager.statistic.*')">
+                                {{ __('Statistic') }}
+                            </x-nav-link>
+                        </div>
+                    @endrole
+                @endcan
+                @can('users@index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('admin.statistic.index')" :active="request()->routeIs('admin.statistic.*')">
-                            {{ __('Statistic') }}
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                            {{ __('Users') }}
                         </x-nav-link>
                     </div>
                 @endcan

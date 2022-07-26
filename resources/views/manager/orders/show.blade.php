@@ -12,15 +12,15 @@
                 <h4 class="bg-indigo-50">{{ $order->created_at }}</h4>
             </div>
             <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                <a class="btn btn-outline-dark" href="{{ route('admin.orders.index') }}"> Back</a>
+                <a class="btn btn-outline-dark" href="{{ route('manager.orders.index') }}"> Back</a>
                 @if($order->status === 'consideration')
-                    <form action="{{ route('admin.orders.approve', $order) }}" method="POST">
+                    <form action="{{ route('manager.orders.approve', $order) }}" method="POST">
                         @csrf
                         @method('POST')
                         <button class="btn btn-outline-dark" onclick="return confirm('Approve this order?')">Approve
                         </button>
                     </form>
-                    <form action="{{ route('admin.orders.reject', $order) }}" method="POST">
+                    <form action="{{ route('manager.orders.reject', $order) }}" method="POST">
                         @csrf
                         @method('POST')
                         <button class="btn btn-outline-dark" onclick="return confirm('Approve this order?')">Reject

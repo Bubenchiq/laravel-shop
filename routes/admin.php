@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\OrderController;
@@ -8,6 +9,10 @@ use \App\Http\Controllers\Admin\StatisticController;
 Route::group(['middleware' => ['permission:admin_per']], function () {
     Route::resource('/products', ProductsController::class)
         ->names('admin.products');
+});
+Route::group(['middleware' => ['permission:admin_per']], function () {
+    Route::resource('/users', UserController::class)
+        ->names('admin.users');
 });
 
 Route::group(['middleware' => ['permission:admin_per']], function () {
