@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 
@@ -37,7 +38,7 @@ class ProductsController extends Controller
             ->when($date, fn(Builder $builder) => $builder->where('created_at', '>=', $searchData['from'])->where('created_at', '<=', $searchData['to']))
             ->latest()->paginate(10);
 
-        return view('admin.products.index', compact('products'));
+        return view('manager.products.index', compact('products'));
     }
 
     /**
@@ -47,7 +48,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('admin.products.createProducts');
+        return view('manager.products.createProducts');
     }
     /**
      * Store a newly created resource in storage.
@@ -59,13 +60,13 @@ class ProductsController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
-            'price'=> 'required',
+            'email' => 'required',
+            'password'=> 'required',
         ]);
 
         Product::create($request->all() + ['user_id' => auth()->id()]);
 
-        return redirect()->route('admin.products.index')->with('success','Product created successfully.');
+        return redirect()->route('manager.products.index')->with('success','Product created successfully.');
     }
 
     /**
@@ -76,7 +77,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.products.show',compact('product'));
+        return view('manager.products.show',compact('product'));
     }
 
     /**
@@ -87,7 +88,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.updateProduct',compact('product'));
+        return view('manager.products.updateProduct',compact('product'));
     }
 
     /**
@@ -107,7 +108,7 @@ class ProductsController extends Controller
 
         $product->update($request->all());
 
-        return redirect()->route('admin.products.index')->with('success','Product updated successfully');
+        return redirect()->route('manager.products.index')->with('success','Product updated successfully');
     }
 
     /**
@@ -120,7 +121,7 @@ class ProductsController extends Controller
     {
         $product->delete();
 
-       return redirect()->route('admin.products.index')
+       return redirect()->route('manager.products.index')
                        ->with('success','Product deleted successfully');
     }
 }
