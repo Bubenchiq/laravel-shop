@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Users;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
@@ -17,10 +18,11 @@ class Create extends FormRequest
     public function rules()
     {
         $availableRoles = Role::query()->where('name', '!=', 'admin')->pluck('name', 'id')->toArray();
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'password' => ['required'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email_address'],
+            'password' => ['required', Rule::in(array_keys($availablePassword))],
             'role' => ['exists:roles,id', Rule::in(array_keys($availableRoles)) ]
         ];
     }
