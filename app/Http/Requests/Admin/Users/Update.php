@@ -19,7 +19,7 @@ class Update extends FormRequest
         return [
             'name' => ['string', 'max:255'],
             'email' => ['email', 'max:255'],
-            'password' => ['nullable|string', 'max:255'],
+            'password' => ['nullable','string', 'max:255'],
             'role' => ['exists:roles,id', Rule::in(array_keys($availableRoles)) ]
         ];
     }

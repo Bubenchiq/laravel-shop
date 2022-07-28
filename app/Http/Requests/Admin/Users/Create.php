@@ -21,8 +21,8 @@ class Create extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email_address'],
-            'password' => ['required', Rule::in(array_keys($availablePassword))],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required',  'string'],
             'role' => ['exists:roles,id', Rule::in(array_keys($availableRoles)) ]
         ];
     }
